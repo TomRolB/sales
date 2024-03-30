@@ -37,6 +37,6 @@ public class SalesmanTable implements Table<Salesman>{
             if (sm.getName().equals(salesman)) return sm;
         }
 
-        return null;
+        throw new IllegalArgumentException("Salesman " + salesman + " does not exist");
     }
 }

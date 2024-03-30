@@ -2,6 +2,7 @@ package org.example;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class Sale {
     private final int id;
@@ -30,6 +31,9 @@ public class Sale {
         return result.toString();
     }
 
+    public int getId() {
+        return id;
+    }
     public Salesman getSalesman() {
         return salesman;
     }
@@ -53,5 +57,9 @@ public class Sale {
         }
 
         return totalQuantity;
+    }
+
+    public Set<Map.Entry<Product, Integer>> getUnits() {
+        return units.entrySet();
     }
 }
