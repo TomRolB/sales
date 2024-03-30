@@ -13,6 +13,13 @@ public class Product {
         this.category = category;
     }
 
+    @Override
+    public String toString() {
+        return "id: " + id +
+                "\nname: " + name +
+                "\nprice: " + price +
+                "\ncategory: " + category.getName();
+    }
     public int getId() {
         return id;
     }

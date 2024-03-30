@@ -3,10 +3,9 @@
 
 class Database {
     + salesman: Table<Salesman>
-    + sale: HashMap<Integer, Sale>
-    + product: HashMap<Integer, Product>
-    + category: HashMap<Integer, Salesman>
-
+    + sale: Table<Sale>
+    + product: Table<Product>
+    + category: Table<Category>
 }
 
 interface Table {

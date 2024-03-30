@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Salesman {
-    public static HashMap<Integer, Salesman> salesmen;
     private final int id;
     private final String name;
     private double salary;
@@ -15,9 +14,14 @@ public class Salesman {
         this.id = id;
         this.name = name;
         this.salary = salary;
-        salesmen.put(id, this);
     }
 
+    @Override
+    public String toString() {
+        return "id: " + id +
+                "\nname: " + name +
+                "\nsalary: " + salary;
+    }
 
     public int getId() {
         return id;

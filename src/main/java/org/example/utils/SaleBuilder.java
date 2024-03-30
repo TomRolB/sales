@@ -14,8 +14,8 @@ public class SaleBuilder {
         return this;
     }
 
-    public Sale getSaleObject(Salesman salesman) {
-        return new Sale(salesman, unitMap);
+    public Sale getSaleObject(int id, Salesman salesman) {
+        return new Sale(id, salesman, unitMap);
     }
 
     public void clear() {
