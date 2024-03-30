@@ -1,0 +1,112 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Database {
+    + salesman: Table<Salesman>
+    + sale: HashMap<Integer, Sale>
+    + product: HashMap<Integer, Product>
+    + category: HashMap<Integer, Salesman>
+
+}
+
+interface Table {
+    + getById(int id): T
+}
+
+class SalesmanTable implements Table {
+    - lastId: int
+    - salesmen: HashMap<Integer, Salesman>
+    + getById(int id): Salesman
+    + insert(String name, double salary)
+}
+
+class SaleTable implements Table {
+    - lastId: int
+    - sales: HashMap<Integer, Sale>
+    + getById(int id): Sale
+    + insert(Salesman salesman, HashMap<Product, Integer> units)
+}
+
+class ProductTable implements Table {
+    - lastId: int
+    - products: HashMap<Integer, Product>
+    + getById(int id): Product
+    + insert(String name, double price, Category category)
+}
+
+class CategoryTable implements Table {
+    - lastId: int
+    - categories: HashMap<Integer, Category>
+    + getById(int id): Category
+    + insert(String name)
+}
+
+class Store {
+    - {static} createSalesman()
+    - {static} createSale()
+    - {static} createProduct()
+    - {static} createCategory()
+}
+
+class Salesman {
+    - id: int
+    - name: String
+    - salary: int
+    - sales: List<Sale>
+    + getId(): int
+    + getName(): String
+    + getSalary(): double
+    + setSalary(double salary): double
+    + getSales(): List<Sale>
+    + addSale(Sale sale)
+    + getCommission(): double
+}
+
+class Sale {
+    - salesman: Salesman
+    - units: HashMap<Product, Integer>
+    + getSalesman(): Salesman
+    + getRevenue(): double
+    + getTotalQuantity(): int
+}
+
+class Product {
+    - id: int
+    - name: String
+    - price: double
+    - category: Category
+    + getId(): int
+    + getName(): String
+    + getPrice(): double
+    + setPrice(double price)
+    + getCategory(): Category
+    + setCategory(Category category)
+}
+
+class Category {
+    - name: String
+    + getName(): String
+}
+
+interface ProductSearcher {
+    + getProducts(T searchParam): Collection<Product>
+}
+
+class CategoryProductSearcher<Category> implements ProductSearcher {
+    + getProducts(Category searchParam): Collection<Product>
+}
+
+Store --> Salesman
+Store --> Sale
+Store --> Product
+Store --> Category
+Store --> Database
+
+Database *-> Table
+
+Salesman o-> Sale
+Sale *-> Product
+Product o-> Category
+ProductSearcher --|> Database
+
+@enduml
