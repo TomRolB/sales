@@ -25,22 +25,5 @@ public class CategoryProductSearcher implements ProductSearcher<Category>{
         return result;
     }
 
-    public String getProductsAsTable(Category searchParam) {
-        Collection<Product> products = getProducts(searchParam);
 
-        StringBuilder result = new StringBuilder(
-                "id\tname\tprice\tcategory\n"
-        );
-
-        for (Product product: products) {
-            result
-                    .append("\n")
-                    .append(product.getId()).append("\t")
-                    .append(product.getName()).append("\t")
-                    .append(product.getPrice()).append("\t")
-                    .append(product.getCategory().getName());
-        }
-
-        return result.toString();
-    }
 }

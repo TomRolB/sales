@@ -4,21 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2accd0ee-ea56-4abb-912d-a5d76abc0705" name="Changes" comment="Added entity creation and salesman commands">
+    <list default="true" id="2accd0ee-ea56-4abb-912d-a5d76abc0705" name="Changes" comment="Base requirements satisfied">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/CategoryTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/CategoryTable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/CategoryTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/CategoryTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diagrams/Class.puml" beforeDir="false" afterPath="$PROJECT_DIR$/diagrams/Class.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Product.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Product.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ProductTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ProductTable.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ProductTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ProductTable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Sale.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Sale.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Sale.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Sale.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/SaleTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/SaleTable.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/SaleTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/SaleTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/SalesmanTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/SalesmanTable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/SalesmanTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/SalesmanTable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Store.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Store.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Store.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Store.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/searchers/CategoryProductSearcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/searchers/CategoryProductSearcher.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/searchers/CategoryProductSearcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/searchers/CategoryProductSearcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/searchers/ProductSearcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/searchers/ProductSearcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/utils/SaleBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/SaleBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/utils/SaleBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/SaleBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/SalesmanTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/SalesmanTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +80,7 @@
       <recent name="org.example" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Store">
+  <component name="RunManager" selected="Gradle.SalesmanTest">
     <configuration name="Store" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.Store" />
       <module name="besysoft-sales.main" />
@@ -120,8 +124,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Store" />
         <item itemvalue="Gradle.SalesmanTest" />
+        <item itemvalue="Application.Store" />
       </list>
     </recent_temporary>
   </component>
@@ -143,7 +147,8 @@
       <workItem from="1711721039645" duration="14436000" />
       <workItem from="1711741659037" duration="14792000" />
       <workItem from="1711793158491" duration="11567000" />
-      <workItem from="1711815357396" duration="8313000" />
+      <workItem from="1711815357396" duration="8994000" />
+      <workItem from="1711832469181" duration="5414000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -161,7 +166,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711815937212</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Base requirements satisfied">
+      <option name="closed" value="true" />
+      <created>1711824461875</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1711824461875</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -181,6 +194,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit" />
     <MESSAGE value="Added entity creation and salesman commands" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added entity creation and salesman commands" />
+    <MESSAGE value="Base requirements satisfied" />
+    <option name="LAST_COMMIT_MESSAGE" value="Base requirements satisfied" />
   </component>
 </project>

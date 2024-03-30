@@ -63,7 +63,7 @@ class Salesman {
 
 class Sale {
     - salesman: Salesman
-    - units: HashMap<Product, Integer>
+    - units: HashMap<Product, ProductInfo>
     + getSalesman(): Salesman
     + getRevenue(): double
     + getTotalQuantity(): int

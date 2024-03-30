@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.utils.SaleBuilder;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,11 +21,15 @@ public class SaleTable implements Table<Sale> {
                     .append(sale.getId()).append("\t")
                     .append(sale.getSalesman().getName()).append("\t");
 
-            for (Map.Entry<Product, Integer> entry: sale.getUnits()) {
-                Product product = entry.getKey();
-                int quantity = entry.getValue();
+            for (Map.Entry<Product, Sale.ProductInfo> entry: sale.getUnits()) {
+                String productName = entry.getKey().getName();
+                int quantity = entry.getValue().quantity;
+                double price = entry.getValue().price;
 
-                result.append(product.getName()).append(": ").append(quantity).append(", ");
+                result
+                        .append(productName)
+                        .append(" (").append(quantity).append(", ")
+                        .append("$").append(price).append("), ");
             }
             result.delete(result.length()-2, result.length()); // Delete last comma
         }
@@ -36,7 +41,7 @@ public class SaleTable implements Table<Sale> {
     public Sale getById(int id) {
         return sales.get(id);
     }
-    public void insert(Salesman salesman, HashMap<Product, Integer> units) {
+    public void insert(Salesman salesman, HashMap<Product, Sale.ProductInfo> units) {
         sales.put(currentId, new Sale(currentId, salesman, units));
         currentId++;
     }
@@ -44,5 +49,9 @@ public class SaleTable implements Table<Sale> {
     public void insert(SaleBuilder builder, Salesman salesman) {
         sales.put(currentId, builder.getSaleObject(currentId, salesman));
         currentId++;
+    }
+
+    public Collection<Sale> getSales() {
+        return sales.values();
     }
 }

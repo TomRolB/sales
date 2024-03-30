@@ -7,10 +7,10 @@ import org.example.Salesman;
 import java.util.HashMap;
 
 public class SaleBuilder {
-    HashMap<Product, Integer> unitMap = new HashMap<>();
+    HashMap<Product, Sale.ProductInfo> unitMap = new HashMap<>();
 
-    public SaleBuilder add(Product product, int quantity) {
-        unitMap.put(product, quantity);
+    public SaleBuilder add(Product product, int quantity, double price) {
+        unitMap.put(product, new Sale.ProductInfo(quantity, price));
         return this;
     }
 

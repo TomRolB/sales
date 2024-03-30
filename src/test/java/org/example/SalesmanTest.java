@@ -9,8 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SalesmanTest {
     Salesman salesman;
-    Product tv = new Product(0, "TV", 10, new Category(0, "Entertainment"));
-    Product fridge = new Product(0, "Fridge", 17.5, new Category(0, "Appliance"));
+    Product tv = new Product(0, "TV", new Category(0, "Entertainment"));
+    Product fridge = new Product(0, "Fridge", new Category(0, "Appliance"));
     SaleBuilder saleBuilder = new SaleBuilder();
 
     @BeforeEach
@@ -31,18 +31,18 @@ public class SalesmanTest {
     @Test
     public void salesmanWithTwoSalesShouldGetSmallCommission() {
         saleBuilder
-                .add(tv, 1)
-                .add(fridge, 1)
-                .getSaleObject(salesman);
+                .add(tv, 1, 10)
+                .add(fridge, 1, 17.5)
+                .getSaleObject(0, salesman);
         assertEquals(1.375, salesman.getCommission());
     }
 
     @Test
     public void salesmanWithFourSalesShouldGetGreaterCommission() {
         saleBuilder
-                .add(tv, 4)
-                .add(fridge, 6)
-                .getSaleObject(salesman);
+                .add(tv, 4, 10)
+                .add(fridge, 6, 17.5)
+                .getSaleObject(1, salesman);
         assertEquals(14.5, salesman.getCommission());
     }
 }

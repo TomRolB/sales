@@ -40,7 +40,8 @@ public class Store {
                 case "exit":
                     return;
                 default:
-                    throw new IllegalArgumentException("'" + args[0] + "' is not a valid command. Run 'help' to get more details.");
+                    System.out.println("'" + args[0] + "' is not a valid command. Run 'help' to get more details.");
+                    continue;
             }
         }
     }
@@ -54,31 +55,20 @@ public class Store {
                 try {
                     salary = Double.parseDouble(args[3]);
                 } catch (NumberFormatException e) {
-                    throw new IllegalArgumentException("Invalid format for salary. A valid example would be 100.5");
+                    System.out.println("Invalid format for salary. A valid example would be 100.5");
+                    return;
                 }
 
                 db.salesman.getByName(salesman).setSalary(salary);
                 System.out.println("Changed salary");
-                break;
-            case "product-price":
-                String product = args[2];
-                double price;
-
-                try {
-                    price = Double.parseDouble(args[3]);
-                } catch (NumberFormatException e) {
-                    throw new IllegalArgumentException("Invalid format for price. A valid example would be 100.5");
-                }
-
-                db.product.getByName(product).setPrice(price);
-                System.out.println("Changed price");
                 break;
         }
     }
 
     private static void handleSearch(String[] args, Database db) {
         if (args.length != 3) {
-            throw new IllegalArgumentException("Must pass a searching option and a parameter");
+            System.out.println("Must pass a searching option and a parameter");
+            return;
         }
 
         switch (args[1]) {
@@ -91,7 +81,8 @@ public class Store {
 
     private static void handleView(String[] args, Database db) {
         if (args.length > 2) {
-            throw new IllegalArgumentException("You must only pass the element table you would like to view");
+            System.out.println("You must only pass the element table you would like to view");
+            return;
         }
 
         switch (args[1]) {
@@ -108,13 +99,15 @@ public class Store {
                 System.out.println(db.category.toString());
                 break;
             default:
-                throw new IllegalArgumentException("Table '" + args[1] + "' does not exit");
+                System.out.println("Table '" + args[1] + "' does not exit");
+                return;
         }
     }
 
     private static void handleGet(String[] args, Database db) {
         if (args.length > 4) {
-            throw new IllegalArgumentException("You must pass the type of entity and an id");
+            System.out.println("You must pass at least the type of entity and an id");
+            return;
         }
 
         String type = args[1];
@@ -122,14 +115,16 @@ public class Store {
         try {
             id = Integer.parseInt(args[2]);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Invalid format for id. A valid example would be 0");
+            System.out.println("Invalid format for id. A valid example would be 0");
+            return;
         }
 
         switch (type) {
             case "salesman":
                 Salesman salesman = db.salesman.getById(id);
                 if (salesman == null) {
-                    throw new NoSuchElementException("There is no salesman with an id of " + id);
+                    System.out.println("There is no salesman with an id of " + id);
+                    return;
                 }
                 System.out.println(salesman);
                 if (args[3].equals("-c")) {
@@ -141,12 +136,13 @@ public class Store {
 
     private static void handleCreation(String[] args, Database db, Scanner scanner) {
         if (args.length == 1) {
-            throw new IllegalArgumentException("You must pass the name of the entity to be created. Run Store help to get more details.");
+            System.out.println("You must pass the name of the entity to be created. Run Store help to get more details.");
+            return;
         }
 
         switch (args[1]) {
             case "salesman":
-                createSalesman(args, db);
+                createSalesman(args, db, scanner);
                 break;
             case "sale":
                 createSale(args, db, scanner);
@@ -158,12 +154,13 @@ public class Store {
                 createCategory(args, db, scanner);
                 break;
             default:
-                throw new IllegalArgumentException(args[1] + "is not a valid entity");
+                System.out.println(args[1] + "is not a valid entity");
+                return;
         }
     }
 
     private static void createSale(String[] args, Database db, Scanner scanner) {
-        System.out.println("salesman: ");
+        System.out.print("salesman: ");
         String salesman = scanner.nextLine();
         System.out.println("Start adding products. Leave the field blank and press enter to finish.");
 
@@ -174,6 +171,8 @@ public class Store {
             String product = scanner.nextLine();
             System.out.print("quantity: ");
             String quantity = scanner.nextLine();
+            System.out.print("price: ");
+            String price = scanner.nextLine();
 
             if (product.isEmpty() || quantity.isEmpty()) break;
 
@@ -181,14 +180,23 @@ public class Store {
             try {
                 parsedQuantity = Integer.parseInt(quantity);
             } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("Invalid format for quantity. A valid example would be 4");
+                System.out.println("Invalid format for quantity. A valid example would be 4");
+                return;
             }
 
-            saleBuilder.add(db.product.getByName(product), parsedQuantity);
+            double parsedPrice;
+            try {
+                parsedPrice = Double.parseDouble(price);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid format for price. A valid example would be 4");
+                return;
+            }
+
+            saleBuilder.add(db.product.getByName(product), parsedQuantity, parsedPrice);
         }
 
         db.sale.insert(saleBuilder, db.salesman.getByName(salesman));
-        System.out.println("Created product");
+        System.out.println("Created sale");
     }
 
     private static void createCategory(String[] args, Database db, Scanner scanner) {
@@ -202,38 +210,28 @@ public class Store {
     private static void createProduct(String[] args, Database db, Scanner scanner) {
         System.out.print("name: ");
         String name = scanner.nextLine();
-        System.out.print("price: ");
-        String price = scanner.nextLine();
         System.out.print("category: ");
         String category = scanner.nextLine();
 
-        double parsedPrice;
-        try {
-            parsedPrice = Double.parseDouble(price);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Invalid format for price. A valid example would be 15.5");
-        }
-
-
-
-        db.product.insert(name, parsedPrice, db.category.getByName(category));
+        db.product.insert(name, db.category.getByName(category));
         System.out.println("Created product");
     }
 
-    private static void createSalesman(String[] args, Database db) {
-        if (args.length > 4) {
-            throw new IllegalArgumentException("Passed too many parameters");
-        }
+    private static void createSalesman(String[] args, Database db, Scanner scanner) {
+        System.out.print("name: ");
+        String name = scanner.nextLine();
+        System.out.print("salary: ");
+        String salary = scanner.nextLine();
 
-        String name = args[2];
-        double salary;
+        double parsedSalary;
         try {
-            salary = Double.parseDouble(args[3]);
+            parsedSalary = Double.parseDouble(salary);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Invalid format for salary. A valid example would be 100.5");
+            System.out.println("Invalid format for salary. A valid example would be 100.5");
+            return;
         }
 
-        db.salesman.insert(name, salary);
+        db.salesman.insert(name, parsedSalary);
         System.out.println("Created salesman");
     }
 

@@ -9,7 +9,7 @@ public class ProductTable implements Table<Product>{
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder(
-                "id\tname\tprice\tcategory\n"
+                "id\tname\tcategory\n"
         );
 
         for (Product product: products.values()) {
@@ -17,7 +17,6 @@ public class ProductTable implements Table<Product>{
                     .append("\n")
                     .append(product.getId()).append("\t")
                     .append(product.getName()).append("\t")
-                    .append(product.getPrice()).append("\t")
                     .append(product.getCategory().getName()).append("\t");
         }
 
@@ -27,8 +26,8 @@ public class ProductTable implements Table<Product>{
     public Product getById(int id) {
         return products.get(id);
     }
-    public void insert(String name, double price, Category category) {
-        products.put(currentId, new Product(currentId, name, price, category));
+    public void insert(String name, Category category) {
+        products.put(currentId, new Product(currentId, name, category));
         currentId++;
     }
 
