@@ -33,6 +33,7 @@ public class CategoryTable implements Table<Category>{
         for (Category cat: categories.values()) {
             if (cat.getName().equals(category)) return cat;
         }
-        throw new IllegalArgumentException("Category " + category + " does not exist");
+
+        return null;
     }
 }

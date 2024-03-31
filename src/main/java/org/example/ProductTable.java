@@ -36,7 +36,7 @@ public class ProductTable implements Table<Product>{
             if (prod.getName().equals(product)) return prod;
         }
 
-        throw new IllegalArgumentException("Product " + product + " does not exist");
+        return null;
     }
 
     public Collection<Product> getAll() {

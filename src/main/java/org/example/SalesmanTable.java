@@ -1,8 +1,7 @@
 package org.example;
 
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.NoSuchElementException;
 
 public class SalesmanTable implements Table<Salesman>{
     private HashMap<Integer, Salesman> salesmen = new HashMap<>();
@@ -37,6 +36,10 @@ public class SalesmanTable implements Table<Salesman>{
             if (sm.getName().equals(salesman)) return sm;
         }
 
-        throw new IllegalArgumentException("Salesman " + salesman + " does not exist");
+        return null;
+    }
+
+    public Collection<Salesman> getSalesmen() {
+        return salesmen.values();
     }
 }

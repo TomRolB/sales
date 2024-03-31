@@ -6,6 +6,7 @@ import org.example.ProductTable;
 import org.example.Salesman;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 public class CategoryProductSearcher implements ProductSearcher<Category>{
@@ -16,7 +17,7 @@ public class CategoryProductSearcher implements ProductSearcher<Category>{
 
     @Override
     public Collection<Product> getProducts(Category searchParam) {
-        Collection<Product> result = new LinkedList<>();
+        HashSet<Product> result = new HashSet<>();
 
         for (Product product: table.getAll()) {
             if (product.getCategory().equals(searchParam)) result.add(product);

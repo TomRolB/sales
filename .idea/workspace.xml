@@ -4,25 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2accd0ee-ea56-4abb-912d-a5d76abc0705" name="Changes" comment="Base requirements satisfied">
+    <list default="true" id="2accd0ee-ea56-4abb-912d-a5d76abc0705" name="Changes" comment="Price now is stated at a Sale object; Replaced exceptions by messages.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/diagrams/Class.puml" beforeDir="false" afterPath="$PROJECT_DIR$/diagrams/Class.puml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Product.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/CategoryTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/CategoryTable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/CategoryTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/CategoryTable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ProductTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ProductTable.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ProductTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ProductTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Sale.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Sale.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Sale.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Sale.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/SaleTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/SaleTable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/SaleTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/SaleTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/SalesmanTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/SalesmanTable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/SalesmanTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/SalesmanTable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Store.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Store.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Store.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Store.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/searchers/CategoryProductSearcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/searchers/CategoryProductSearcher.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/searchers/CategoryProductSearcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/searchers/CategoryProductSearcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/searchers/ProductSearcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/searchers/ProductSearcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/utils/SaleBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/SaleBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/utils/SaleBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/SaleBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/SalesmanTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/SalesmanTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/searchers/ProductSearcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/searchers/ProductSearcher.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,7 +143,7 @@
       <workItem from="1711741659037" duration="14792000" />
       <workItem from="1711793158491" duration="11567000" />
       <workItem from="1711815357396" duration="8994000" />
-      <workItem from="1711832469181" duration="5414000" />
+      <workItem from="1711832469181" duration="10309000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -174,7 +169,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711824461875</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Price now is stated at a Sale object; Replaced exceptions by messages.">
+      <option name="closed" value="true" />
+      <created>1711838542870</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1711838542871</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -195,6 +198,7 @@
     <MESSAGE value="Initial commit" />
     <MESSAGE value="Added entity creation and salesman commands" />
     <MESSAGE value="Base requirements satisfied" />
-    <option name="LAST_COMMIT_MESSAGE" value="Base requirements satisfied" />
+    <MESSAGE value="Price now is stated at a Sale object; Replaced exceptions by messages." />
+    <option name="LAST_COMMIT_MESSAGE" value="Price now is stated at a Sale object; Replaced exceptions by messages." />
   </component>
 </project>
