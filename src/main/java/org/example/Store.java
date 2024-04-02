@@ -3,7 +3,6 @@ package org.example;
 import org.example.searchers.CategoryProductSearcher;
 import org.example.searchers.PriceProductSearcher;
 import org.example.searchers.SalesmanProductSearcher;
-import org.example.utils.SaleBuilder;
 
 import java.util.Scanner;
 
@@ -90,43 +89,22 @@ public class Store {
             return;
         }
 
-        switch (args[1]) {
+        String toModify = args[1];
+        switch (toModify) {
             case "salesman-salary":
                 String salesmanName = args[2];
-                Salesman salesman = db.salesman.getByName(salesmanName);
-                if (salesman == null) {
-                    System.out.println("Salesman '" + salesmanName + "' does not exist");
-                    return;
-                }
+                String salary = args[3];
 
-                double salary;
-                try {
-                    salary = Double.parseDouble(args[3]);
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid format for salary. A valid example would be 100.5");
-                    return;
-                }
-
-                salesman.setSalary(salary);
-                System.out.println("Changed salary");
+                db.setSalesmanSalary(salesmanName, salary);
                 break;
+
             case "product-category":
                 String productName = args[2];
-                Product product = db.product.getByName(productName);
-                if (product == null) {
-                    System.out.println("Product '" + productName + "' does not exist");
-                    return;
-                }
-
                 String categoryName = args[3];
-                Category category = db.category.getByName(categoryName);
-                if (category == null) {
-                    System.out.println("Category '" + categoryName + "' does not exist");
-                    return;
-                }
 
-                product.setCategory(category);
-                System.out.println("Changed category");
+                db.setProductCategory(productName, categoryName);
+                break;
+
             default:
                 System.out.println("Invalid command. Run 'help' to get more details");
         }
@@ -138,13 +116,20 @@ public class Store {
             return;
         }
 
-        switch (args[1]) {
+        String option = args[1];
+        switch (option) {
             case "-c":
                 CategoryProductSearcher cps = new CategoryProductSearcher(db.product);
-                System.out.println(cps.getProductsAsTable(db.category.getByName(args[2])));
+
+                String categoryName = args[2];
+                Category searchParam = db.category.getByName(categoryName);
+
+                System.out.println(cps.getProductsAsTable(searchParam));
                 break;
+
             case "-p":
                 int price;
+
                 try {
                     price = Integer.parseInt(args[2]);
                 } catch (NumberFormatException e) {
@@ -155,12 +140,14 @@ public class Store {
                 PriceProductSearcher pps = new PriceProductSearcher(db.sale);
                 System.out.println(pps.getProductsAsTable(price));
                 break;
+
             case "-s":
                 SalesmanProductSearcher sps = new SalesmanProductSearcher(db.salesman);
                 System.out.println(sps.getProductsAsTable(db.salesman.getByName(args[2])));
                 break;
+
             default:
-                System.out.println("Invalid option: '" + args[1] + "'");
+                System.out.println("Invalid option: '" + option + "'");
         }
     }
 
@@ -195,9 +182,11 @@ public class Store {
         }
 
         String type = args[1];
-        int id;
+        String id = args[2];
+
+        int parsedId;
         try {
-            id = Integer.parseInt(args[2]);
+            parsedId = Integer.parseInt(id);
         } catch (NumberFormatException e) {
             System.out.println("Invalid format for id. A valid example would be 0");
             return;
@@ -205,29 +194,35 @@ public class Store {
 
         switch (type) {
             case "salesman":
-                if (!printElementIfNotNull(db.salesman, id)) return;
-
-                if (args.length != 4) return;
-
-                if (!args[3].equals("-c")) {
-                    System.out.println("Invalid option '" + args[3] + "'");
-                    return;
-                }
-
-                Salesman salesman = db.salesman.getById(id);
-                System.out.println("commission: " + salesman.getCommission());
+                if (!printElementIfNotNull(db.salesman, parsedId)) return;
+                printCommissionIfRequested(args, db, parsedId);
                 break;
             case "sale":
-                printElementIfNotNull(db.sale, id);
+                printElementIfNotNull(db.sale, parsedId);
                 break;
             case "product":
-                printElementIfNotNull(db.product, id);
+                printElementIfNotNull(db.product, parsedId);
                 break;
             case "category":
-                printElementIfNotNull(db.category, id);
+                printElementIfNotNull(db.category, parsedId);
                 break;
+            default:
+                System.out.println(type + " is not a valid element");
         }
     }
+
+    private static void printCommissionIfRequested(String[] args, Database db, int parsedId) {
+        if (args.length != 4) return;
+
+        if (!args[3].equals("-c")) {
+            System.out.println("Invalid option '" + args[3] + "'");
+            return;
+        }
+
+        Salesman salesman = db.salesman.getById(parsedId);
+        System.out.println("commission: " + salesman.getCommission());
+    }
+
     private static <T> boolean printElementIfNotNull(Table<T> table, int id) {
         T element = table.getById(id);
         if (element == null) {
@@ -246,116 +241,20 @@ public class Store {
 
         switch (args[1]) {
             case "salesman":
-                createSalesman(db, scanner);
+                db.createSalesman(scanner);
                 break;
             case "sale":
-                createSale(db, scanner);
+                db.createSale(scanner);
                 break;
             case "product":
-                createProduct(db, scanner);
+                db.createProduct(scanner);
                 break;
             case "category":
-                createCategory(db, scanner);
+                db.createCategory(scanner);
                 break;
             default:
                 System.out.println(args[1] + " is not a valid element");
         }
-    }
-
-    private static void createSale(Database db, Scanner scanner) {
-        System.out.print("salesman: ");
-        String salesmanName = scanner.nextLine();
-
-        Salesman salesman = db.salesman.getByName(salesmanName);
-        if (salesman == null) {
-            System.out.println("Salesman '" + salesmanName+ "' does not exist");
-            return;
-        }
-
-        System.out.println("Start adding products. Leave any field blank and press enter to finish.");
-
-        SaleBuilder saleBuilder = new SaleBuilder();
-
-        while (true) {
-            System.out.print("product: ");
-            String productName = scanner.nextLine();
-            System.out.print("quantity: ");
-            String quantity = scanner.nextLine();
-            System.out.print("price: ");
-            String price = scanner.nextLine();
-
-            if (productName.isEmpty() || quantity.isEmpty() || price.isEmpty()) break;
-
-            Product product = db.product.getByName(productName);
-            if (product == null) {
-                System.out.println("Product '" + productName + "' does not exist");
-                return;
-            }
-
-            int parsedQuantity;
-            try {
-                parsedQuantity = Integer.parseInt(quantity);
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid format for quantity. A valid example would be 4");
-                return;
-            }
-
-            double parsedPrice;
-            try {
-                parsedPrice = Double.parseDouble(price);
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid format for price. A valid example would be 4");
-                return;
-            }
-
-            saleBuilder.add(product, parsedQuantity, parsedPrice);
-            System.out.println("Added a product\n");
-        }
-
-        db.sale.insert(saleBuilder, salesman);
-        System.out.println("Created sale");
-    }
-
-    private static void createCategory(Database db, Scanner scanner) {
-        System.out.print("name: ");
-        String name = scanner.nextLine();
-
-        db.category.insert(name);
-        System.out.println("Created category");
-    }
-
-    private static void createProduct(Database db, Scanner scanner) {
-        System.out.print("name: ");
-        String name = scanner.nextLine();
-        System.out.print("category: ");
-        String categoryName = scanner.nextLine();
-
-        Category category = db.category.getByName(categoryName);
-        if (category == null) {
-            System.out.println("Category '" + categoryName + "' does not exist");
-            return;
-        }
-
-        db.product.insert(name, category);
-        System.out.println("Created product");
-    }
-
-    private static void createSalesman(Database db, Scanner scanner) {
-        System.out.print("name: ");
-        String name = scanner.nextLine();
-        System.out.print("salary: ");
-        String salary = scanner.nextLine();
-
-        double parsedSalary;
-        try {
-            parsedSalary = Double.parseDouble(salary);
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid format for salary. A valid example would be 100.5");
-            return;
-        }
-
-        db.salesman.insert(name, parsedSalary);
-        System.out.println("Created salesman");
     }
 
     private static void help() {
@@ -373,6 +272,11 @@ public class Store {
         System.out.println("\t* <type-attribute> must be 'salesman-salary' or 'product-category'");
         System.out.println("\t* <name> must be the name of an existing element of the type in question");
         System.out.println("\t* <newValue> must follow the format of the attribute to be changed");
+        System.out.println();
+        System.out.println("delete <type> <id>\t| Delete an element by id");
+        System.out.println("\t* <type> must be 'salesman', 'sales', 'product' or 'category'");
+        System.out.println("\t* <id> must be an integer value and belong to an existing element");
+        System.out.println("\t* If an element relies on the element to be deleted, the operation will fail");
         System.out.println();
         System.out.println("view <table>\t| View all created elements in a table.");
         System.out.println("\t* <table> must be 'salesman', 'sales', 'product' or 'category'");
