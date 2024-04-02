@@ -20,7 +20,7 @@ public class Sale {
     public String toString() {
         StringBuilder result = new StringBuilder(
                 "id: " + id +
-                "\nsalesman: " + salesman +
+                "\nsalesman: " + salesman.getName() +
                 "\n units: "
         );
 
@@ -36,6 +36,10 @@ public class Sale {
         }
 
         return result.toString();
+    }
+
+    public boolean containsProduct(Product product) {
+        return units.containsKey(product);
     }
 
     public static class ProductInfo {

@@ -1,12 +1,10 @@
 package org.example;
 
-import jdk.jshell.spi.ExecutionControl;
 import org.example.searchers.CategoryProductSearcher;
 import org.example.searchers.PriceProductSearcher;
 import org.example.searchers.SalesmanProductSearcher;
 import org.example.utils.SaleBuilder;
 
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Store {
@@ -25,13 +23,16 @@ public class Store {
 
             switch (args[0]) {
                 case "create":
-                    handleCreation(args, db, scanner);
+                    handleCreate(args, db, scanner);
                     break;
                 case "get":
                     handleGet(args, db);
                     break;
                 case "set":
                     handleSet(args, db);
+                    break;
+                case "delete":
+                    handleDelete(args, db);
                     break;
                 case "view":
                     handleView(args, db);
@@ -46,9 +47,41 @@ public class Store {
                     return;
                 default:
                     System.out.println("'" + args[0] + "' is not a valid command. Run 'help' to get more details.");
-                    continue;
             }
         }
+    }
+
+    private static void handleDelete(String[] args, Database db) {
+        if (args.length != 3) {
+            System.out.println("Invalid number of arguments. Must pass an element type and the id of the element to be deleted.");
+            return;
+        }
+
+        int id;
+        try {
+            id = Integer.parseInt(args[2]);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid format for id. A valid example would be 0");
+            return;
+        }
+
+        switch (args[1]) {
+            case "salesman":
+                db.deleteSalesman(id);
+                break;
+            case "sale":
+                db.deleteSale(id);
+                break;
+            case "product":
+                db.deleteProduct(id);
+                break;
+            case "category":
+                db.deleteCategory(id);
+                break;
+            default:
+                System.out.println("Invalid command. Run 'help' to get more details");
+        }
+
     }
 
     private static void handleSet(String[] args, Database db) {
@@ -95,7 +128,7 @@ public class Store {
                 product.setCategory(category);
                 System.out.println("Changed category");
             default:
-                System.out.println("Invalid command. Run 'help' to get more details/");
+                System.out.println("Invalid command. Run 'help' to get more details");
         }
     }
 
@@ -132,8 +165,8 @@ public class Store {
     }
 
     private static void handleView(String[] args, Database db) {
-        if (args.length > 2) {
-            System.out.println("You must only pass the element table you would like to view");
+        if (args.length != 2) {
+            System.out.println("You must pass the element table you would like to view");
             return;
         }
 
@@ -151,14 +184,13 @@ public class Store {
                 System.out.println(db.category.toString());
                 break;
             default:
-                System.out.println("Table '" + args[1] + "' does not exit");
-                return;
+                System.out.println("Table '" + args[1] + "' does not exist");
         }
     }
 
     private static void handleGet(String[] args, Database db) {
         if (args.length > 4) {
-            System.out.println("You must pass at least the type of entity and an id");
+            System.out.println("You must pass at least the type of element and an id");
             return;
         }
 
@@ -173,45 +205,64 @@ public class Store {
 
         switch (type) {
             case "salesman":
-                Salesman salesman = db.salesman.getById(id);
-                if (salesman == null) {
-                    System.out.println("There is no salesman with an id of " + id);
+                if (!printElementIfNotNull(db.salesman, id)) return;
+
+                if (args.length != 4) return;
+
+                if (!args[3].equals("-c")) {
+                    System.out.println("Invalid option '" + args[3] + "'");
                     return;
                 }
-                System.out.println(salesman);
-                if (args[3].equals("-c")) {
-                    System.out.println("commission: " + salesman.getCommission());
-                }
+
+                Salesman salesman = db.salesman.getById(id);
+                System.out.println("commission: " + salesman.getCommission());
+                break;
+            case "sale":
+                printElementIfNotNull(db.sale, id);
+                break;
+            case "product":
+                printElementIfNotNull(db.product, id);
+                break;
+            case "category":
+                printElementIfNotNull(db.category, id);
                 break;
         }
     }
+    private static <T> boolean printElementIfNotNull(Table<T> table, int id) {
+        T element = table.getById(id);
+        if (element == null) {
+            System.out.println("There is no element with an id of " + id);
+            return false;
+        }
+        System.out.println(element);
+        return true;
+    }
 
-    private static void handleCreation(String[] args, Database db, Scanner scanner) {
-        if (args.length == 1) {
-            System.out.println("You must pass the name of the entity to be created. Run Store help to get more details.");
+    private static void handleCreate(String[] args, Database db, Scanner scanner) {
+        if (args.length != 2) {
+            System.out.println("You must pass the name of the element to be created. Run Store help to get more details.");
             return;
         }
 
         switch (args[1]) {
             case "salesman":
-                createSalesman(args, db, scanner);
+                createSalesman(db, scanner);
                 break;
             case "sale":
-                createSale(args, db, scanner);
+                createSale(db, scanner);
                 break;
             case "product":
-                createProduct(args, db, scanner);
+                createProduct(db, scanner);
                 break;
             case "category":
-                createCategory(args, db, scanner);
+                createCategory(db, scanner);
                 break;
             default:
-                System.out.println(args[1] + "is not a valid entity");
-                return;
+                System.out.println(args[1] + " is not a valid element");
         }
     }
 
-    private static void createSale(String[] args, Database db, Scanner scanner) {
+    private static void createSale(Database db, Scanner scanner) {
         System.out.print("salesman: ");
         String salesmanName = scanner.nextLine();
 
@@ -221,7 +272,7 @@ public class Store {
             return;
         }
 
-        System.out.println("Start adding products. Leave the field blank and press enter to finish.");
+        System.out.println("Start adding products. Leave any field blank and press enter to finish.");
 
         SaleBuilder saleBuilder = new SaleBuilder();
 
@@ -258,13 +309,14 @@ public class Store {
             }
 
             saleBuilder.add(product, parsedQuantity, parsedPrice);
+            System.out.println("Added a product\n");
         }
 
         db.sale.insert(saleBuilder, salesman);
         System.out.println("Created sale");
     }
 
-    private static void createCategory(String[] args, Database db, Scanner scanner) {
+    private static void createCategory(Database db, Scanner scanner) {
         System.out.print("name: ");
         String name = scanner.nextLine();
 
@@ -272,7 +324,7 @@ public class Store {
         System.out.println("Created category");
     }
 
-    private static void createProduct(String[] args, Database db, Scanner scanner) {
+    private static void createProduct(Database db, Scanner scanner) {
         System.out.print("name: ");
         String name = scanner.nextLine();
         System.out.print("category: ");
@@ -288,7 +340,7 @@ public class Store {
         System.out.println("Created product");
     }
 
-    private static void createSalesman(String[] args, Database db, Scanner scanner) {
+    private static void createSalesman(Database db, Scanner scanner) {
         System.out.print("name: ");
         String name = scanner.nextLine();
         System.out.print("salary: ");
@@ -312,7 +364,12 @@ public class Store {
         System.out.println("create <type>\t| Create a new element of a given type");
         System.out.println("\t* <type> must be 'salesman', 'sales', 'product' or 'category'");
         System.out.println();
-        System.out.println("set <type-attribute> <name> <newValue> \t| Change the attribute of an element");
+        System.out.println("get <type> <id>\t| Get an element by its id");
+        System.out.println("\t* <type> must be 'salesman', 'sales', 'product' or 'category'");
+        System.out.println("\t* <id> must be an integer value and belong to an existing element");
+        System.out.println("\t* If type=salesman, a final option '-c' can be included to compute a salesman's commission");
+        System.out.println();
+        System.out.println("set <type-attribute> <name> <newValue>\t| Change the attribute of an element");
         System.out.println("\t* <type-attribute> must be 'salesman-salary' or 'product-category'");
         System.out.println("\t* <name> must be the name of an existing element of the type in question");
         System.out.println("\t* <newValue> must follow the format of the attribute to be changed");
@@ -323,6 +380,6 @@ public class Store {
         System.out.println("product-search <option> <searchParam>\t| Search products based on a searching option.");
         System.out.println("\t* option '-c': Search by category. <searchParam> must be the name of an existing category.");
         System.out.println("\t* option '-p': Search for products whose price has ever been <searchParam>.");
-        System.out.println("\t* option '-p': Search by salesman who sold the product. <searchParam> must be the name of an existing salesman.");
+        System.out.println("\t* option '-s': Search by salesman who sold the product. <searchParam> must be the name of an existing salesman.");
     }
 }

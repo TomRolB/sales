@@ -4,7 +4,8 @@ import java.util.Collection;
 import java.util.HashMap;
 
 public class ProductTable implements Table<Product>{
-    private HashMap<Integer, Product> products = new HashMap<>();
+    private final HashMap<Integer, Product> products = new HashMap<>();
+    private final HashMap<String, Product> stringIndex = new HashMap<>();
     int currentId = 0;
     @Override
     public String toString() {
@@ -27,19 +28,28 @@ public class ProductTable implements Table<Product>{
         return products.get(id);
     }
     public void insert(String name, Category category) {
-        products.put(currentId, new Product(currentId, name, category));
+        if (stringIndex.containsKey(name)) {
+            System.out.println(("Product " + name + " already exists"));
+            return;
+        }
+
+        Product product = new Product(currentId, name, category);
+        products.put(currentId, product);
+        stringIndex.put(name, product);
         currentId++;
     }
 
     public Product getByName(String product) {
-        for (Product prod: products.values()) {
-            if (prod.getName().equals(product)) return prod;
-        }
-
-        return null;
+        return stringIndex.get(product);
     }
 
-    public Collection<Product> getAll() {
+    public Collection<Product> getProducts() {
         return products.values();
+    }
+
+    public void delete(int id) {
+        String productName = products.get(id).getName();
+        stringIndex.remove(productName);
+        products.remove(id);
     }
 }

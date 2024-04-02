@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SaleTable implements Table<Sale> {
-    private HashMap<Integer, Sale> sales = new HashMap<>();
+    private final HashMap<Integer, Sale> sales = new HashMap<>();
     int currentId = 0;
     @Override
     public String toString() {
@@ -41,7 +41,7 @@ public class SaleTable implements Table<Sale> {
     public Sale getById(int id) {
         return sales.get(id);
     }
-    public void insert(Salesman salesman, HashMap<Product, Sale.ProductInfo> units) {
+    public void insert(HashMap<Product, Sale.ProductInfo> units, Salesman salesman) {
         sales.put(currentId, new Sale(currentId, salesman, units));
         currentId++;
     }
@@ -53,5 +53,9 @@ public class SaleTable implements Table<Sale> {
 
     public Collection<Sale> getSales() {
         return sales.values();
+    }
+
+    public void delete(int id) {
+        sales.remove(id);
     }
 }

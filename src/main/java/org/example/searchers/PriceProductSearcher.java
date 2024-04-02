@@ -4,7 +4,6 @@ import org.example.Product;
 import org.example.Sale;
 import org.example.SaleTable;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;

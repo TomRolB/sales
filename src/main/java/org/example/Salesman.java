@@ -1,14 +1,13 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Salesman {
     private final int id;
     private final String name;
     private double salary;
-    private List<Sale> sales = new ArrayList<>();
+    private final Set<Sale> sales = new HashSet<>();
 
     public Salesman(int id, String name, double salary) {
         this.id = id;
@@ -39,7 +38,7 @@ public class Salesman {
         this.salary = salary;
     }
 
-    public List<Sale> getSales() {
+    public Set<Sale> getSales() {
         return sales;
     }
     public void addSale(Sale sale) {
@@ -58,5 +57,9 @@ public class Salesman {
         double commissionRate = totalQuantity > 2 ? 0.10 : 0.05;
 
         return totalRevenue * commissionRate;
+    }
+
+    public void deleteSaleIfPresent(Sale saleObj) {
+        sales.remove(saleObj);
     }
 }

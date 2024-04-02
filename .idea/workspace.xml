@@ -4,20 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2accd0ee-ea56-4abb-912d-a5d76abc0705" name="Changes" comment="Price now is stated at a Sale object; Replaced exceptions by messages.">
+    <list default="true" id="2accd0ee-ea56-4abb-912d-a5d76abc0705" name="Changes" comment="Implemented deletion">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/CategoryTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/CategoryTable.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/CategoryTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/CategoryTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Database.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Database.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ProductTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ProductTable.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ProductTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ProductTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Sale$ProductInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Sale$ProductInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Sale.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Sale.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Sale.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Sale.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/SaleTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/SaleTable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/SaleTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/SaleTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Salesman.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Salesman.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Salesman.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Salesman.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/SalesmanTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/SalesmanTable.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/SalesmanTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/SalesmanTable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Store.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Store.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Store.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Store.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Table.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Table.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/searchers/CategoryProductSearcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/searchers/CategoryProductSearcher.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/searchers/CategoryProductSearcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/searchers/CategoryProductSearcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/searchers/ProductSearcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/searchers/ProductSearcher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/searchers/PriceProductSearcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/searchers/PriceProductSearcher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/searchers/PriceProductSearcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/searchers/PriceProductSearcher.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,6 +81,9 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\tomas\projects\besysoft\besysoft-sales\src\main\java\org\example\database" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="org.example" />
     </key>
@@ -143,7 +156,9 @@
       <workItem from="1711741659037" duration="14792000" />
       <workItem from="1711793158491" duration="11567000" />
       <workItem from="1711815357396" duration="8994000" />
-      <workItem from="1711832469181" duration="10309000" />
+      <workItem from="1711832469181" duration="11082000" />
+      <workItem from="1711980799620" duration="10000" />
+      <workItem from="1712058296146" duration="16911000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -177,7 +192,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711838542871</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Implemented searchers">
+      <option name="closed" value="true" />
+      <created>1711845070858</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1711845070858</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,6 +222,8 @@
     <MESSAGE value="Added entity creation and salesman commands" />
     <MESSAGE value="Base requirements satisfied" />
     <MESSAGE value="Price now is stated at a Sale object; Replaced exceptions by messages." />
-    <option name="LAST_COMMIT_MESSAGE" value="Price now is stated at a Sale object; Replaced exceptions by messages." />
+    <MESSAGE value="Implemented searchers" />
+    <MESSAGE value="Implemented deletion" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented deletion" />
   </component>
 </project>

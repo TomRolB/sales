@@ -4,7 +4,8 @@ import java.util.Collection;
 import java.util.HashMap;
 
 public class SalesmanTable implements Table<Salesman>{
-    private HashMap<Integer, Salesman> salesmen = new HashMap<>();
+    private final HashMap<Integer, Salesman> salesmen = new HashMap<>();
+    private final HashMap<String, Salesman> stringIndex = new HashMap<>();
     int currentId = 0;
     @Override
     public String toString() {
@@ -27,16 +28,25 @@ public class SalesmanTable implements Table<Salesman>{
         return salesmen.get(id);
     }
     public void insert(String name, double salary) {
-        salesmen.put(currentId, new Salesman(currentId, name, salary));
+        Salesman salesman = new Salesman(currentId, name, salary);
+        if (stringIndex.containsKey(name)) {
+            System.out.println("Salesman " + name + " already exists");
+            return;
+        }
+
+        salesmen.put(currentId, salesman);
+        stringIndex.put(name, salesman);
         currentId++;
     }
 
     public Salesman getByName(String salesman) {
-        for (Salesman sm: salesmen.values()) {
-            if (sm.getName().equals(salesman)) return sm;
-        }
+        return stringIndex.get(salesman);
+    }
 
-        return null;
+    public void delete(int id) {
+        String salesmanName = salesmen.get(id).getName();
+        stringIndex.remove(salesmanName);
+        salesmen.remove(id);
     }
 
     public Collection<Salesman> getSalesmen() {

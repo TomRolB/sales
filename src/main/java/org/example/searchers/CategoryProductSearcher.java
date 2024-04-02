@@ -3,11 +3,9 @@ package org.example.searchers;
 import org.example.Category;
 import org.example.Product;
 import org.example.ProductTable;
-import org.example.Salesman;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.LinkedList;
 
 public class CategoryProductSearcher implements ProductSearcher<Category>{
     ProductTable table;
@@ -19,7 +17,7 @@ public class CategoryProductSearcher implements ProductSearcher<Category>{
     public Collection<Product> getProducts(Category searchParam) {
         HashSet<Product> result = new HashSet<>();
 
-        for (Product product: table.getAll()) {
+        for (Product product: table.getProducts()) {
             if (product.getCategory().equals(searchParam)) result.add(product);
         }
 
