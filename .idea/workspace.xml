@@ -4,28 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2accd0ee-ea56-4abb-912d-a5d76abc0705" name="Changes" comment="Implemented deletion">
+    <list default="true" id="2accd0ee-ea56-4abb-912d-a5d76abc0705" name="Changes" comment="Moved binaries and added 'delete' to help()">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/diagrams/ER.png" beforeDir="false" afterPath="$PROJECT_DIR$/diagrams/ER.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Category.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/CategoryTable.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Database.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Product.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ProductTable.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Sale$ProductInfo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Sale.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/SaleTable.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Salesman.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/SalesmanTable.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Store.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Store.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Store.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Table.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/searchers/CategoryProductSearcher.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/searchers/PriceProductSearcher.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/searchers/ProductSearcher.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/searchers/SalesmanProductSearcher.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/utils/SaleBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/diagrams/Class.puml" beforeDir="false" afterPath="$PROJECT_DIR$/diagrams/Class.puml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,7 +137,7 @@
       <workItem from="1711815357396" duration="8994000" />
       <workItem from="1711832469181" duration="11082000" />
       <workItem from="1711980799620" duration="10000" />
-      <workItem from="1712058296146" duration="26345000" />
+      <workItem from="1712058296146" duration="29067000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -206,7 +187,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712081185583</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Moved binaries and added 'delete' to help()">
+      <option name="closed" value="true" />
+      <created>1712090757319</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1712090757319</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -230,6 +219,7 @@
     <MESSAGE value="Price now is stated at a Sale object; Replaced exceptions by messages." />
     <MESSAGE value="Implemented searchers" />
     <MESSAGE value="Implemented deletion" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented deletion" />
+    <MESSAGE value="Moved binaries and added 'delete' to help()" />
+    <option name="LAST_COMMIT_MESSAGE" value="Moved binaries and added 'delete' to help()" />
   </component>
 </project>

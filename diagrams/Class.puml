@@ -2,10 +2,20 @@
 'https://plantuml.com/class-diagram
 
 class Database {
-    + salesman: Table<Salesman>
-    + sale: Table<Sale>
-    + product: Table<Product>
-    + category: Table<Category>
+    + salesman: SalesmanTable
+    + sale: SaleTable
+    + product: ProductTable
+    + category: CategoryTable
+    + createSalesman(Scanner scanner)
+    + createSale(Scanner scanner)
+    + createProduct(Scanner scanner)
+    + createCategory(Scanner scanner)
+    + deleteSalesman(int id)
+    + deleteSale(int id)
+    + deleteProduct(int id)
+    + deleteCategory(int id)
+    + setSalesmanSalary(String salesmanName, String salary)
+    + setProductCategory(String productName, String categoryName)
 }
 
 interface Table {
@@ -13,97 +23,156 @@ interface Table {
 }
 
 class SalesmanTable implements Table {
-    - lastId: int
+    - currentId: int
     - salesmen: HashMap<Integer, Salesman>
+    - stringIndex: HashMap<String, Salesman>
     + getById(int id): Salesman
+    + getByName(String salesman): Salesman
     + insert(String name, double salary)
+    + delete(int id)
+    + getSalesmen(): Collection<Salesman>
 }
 
 class SaleTable implements Table {
-    - lastId: int
+    - currentId: int
     - sales: HashMap<Integer, Sale>
+    + toString(): String
     + getById(int id): Sale
     + insert(Salesman salesman, HashMap<Product, Integer> units)
+    + insert(SaleBuilder builder, Salesman salesman)
+    + getSales(): Collection<Sale>
+    + delete(int id)
+}
+
+class SaleBuilder {
+    - unitMap: HashMap<Product, Sale.ProductInfo>
+    + add(Product product, int quantity, double price): SaleBuilder
+    + getSaleObject(int id, Salesman salesman): Sale
+    + clear()
 }
 
 class ProductTable implements Table {
-    - lastId: int
     - products: HashMap<Integer, Product>
+    - stringIndex: HashMap<String, Product>
+    - currentId: id
+    + toString(): String
     + getById(int id): Product
-    + insert(String name, double price, Category category)
+    + getByName(String product): Product
+    + getProducts(): Collection<Product>
+    + delete(int id)
 }
 
 class CategoryTable implements Table {
-    - lastId: int
     - categories: HashMap<Integer, Category>
+    - stringIndex: HashMap<String, Category>
+    - currentId: int
+
+
     + getById(int id): Category
+    + getByName(String category): Category
     + insert(String name)
+    + delete(int id)
+    + toString(): String
+
 }
 
 class Store {
-    - {static} createSalesman()
-    - {static} createSale()
-    - {static} createProduct()
-    - {static} createCategory()
+'    - {static} createSalesman()
+'    - {static} createSale()
+'    - {static} createProduct()
+'    - {static} createCategory()
+    + {static} main(String[] args)
+    - {static} handleCreate(String[] args, Database db, Scanner scanner)
+    - {static} handleDelete(String[] args, Database db)
+    - {static} handleGet(String[] args, Database db)
+    - {static} handleSearch(String[] args, Database db)
+    - {static} handleSet(String[] args, Database db)
+    - {static} handleView(String[] args, Database db)
+    - {static} help()
+    - {static} printCommissionIfRequested(String[] args, Database db, parsedId)
+    - {static} printElementIfNotNull(Table<T> Table, int id): boolean
 }
 
 class Salesman {
     - id: int
     - name: String
-    - salary: int
-    - sales: List<Sale>
+    - salary: double
+    - sales: Set<Sale>
+    + toString(): String
     + getId(): int
     + getName(): String
     + getSalary(): double
-    + setSalary(double salary): double
-    + getSales(): List<Sale>
+    + setSalary(double salary)
+    + getSales(): Set<Sale>
     + addSale(Sale sale)
     + getCommission(): double
+    + deleteSaleIfPresent(Sale saleObj)
 }
 
 class Sale {
+    - id: int
     - salesman: Salesman
     - units: HashMap<Product, ProductInfo>
+    + toString(): String
+    + containsProduct(Product product): boolean
+    + getId(): int
     + getSalesman(): Salesman
     + getRevenue(): double
     + getTotalQuantity(): int
+    + getUnits(): Set<Map.Entry<Product, ProductInfo>>
 }
 
 class Product {
     - id: int
     - name: String
-    - price: double
     - category: Category
+    + toString(): String
     + getId(): int
     + getName(): String
-    + getPrice(): double
-    + setPrice(double price)
     + getCategory(): Category
     + setCategory(Category category)
 }
 
 class Category {
+    - id: int
     - name: String
+    + getId(): int
     + getName(): String
+    + toString(): String
+
 }
 
 interface ProductSearcher {
     + getProducts(T searchParam): Collection<Product>
+    + default getProductsAsTable(T searchParam): String
 }
 
 class CategoryProductSearcher<Category> implements ProductSearcher {
+    - table: ProductTable
     + getProducts(Category searchParam): Collection<Product>
 }
 
-Store --> Salesman
-Store --> Sale
-Store --> Product
-Store --> Category
+class SalesmanProductSearcher<Salesman> implements ProductSearcher {
+    - table: SalesmanTable
+    + getProducts(Salesman searchParam): Collection<Salesman>
+}
+
+class PriceProductSearcher<Integer> implements ProductSearcher {
+    - table: SaleTable
+    + getProducts(Integer searchParam): Collection<Salesman>
+}
+
+
 Store --> Database
 
 Database *-> Table
+SalesmanTable --> Salesman
+SaleTable --> Sale
+ProductTable --> Product
+CategoryTable --> Category
 
 Salesman o-> Sale
+Salesman <-* Sale
 Sale *-> Product
 Product o-> Category
 ProductSearcher --|> Database
